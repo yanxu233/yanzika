@@ -1,1 +1,1 @@
-{"ver": "v22.2.1", "files": ["dist/app.v22.2.1.css", "dist/app.v22.2.1.js"]}
+{"ver": "v22.6.1", "files": ["dist/app.v22.6.1.css", "dist/app.v22.6.1.js"], "lazy": ["dist/lazy.v22.6.1.pages.js", "dist/lazy.v22.6.1.games.js", "dist/lazy.v22.6.1.divinedex.js", "dist/lazy.v22.6.1.emoown.js"]}

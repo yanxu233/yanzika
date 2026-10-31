@@ -80,7 +80,7 @@ async function migrateIntoNewBooks() {
     for (const rq of reqs) {
       let p = '';
       try { p = new URL(rq.url).pathname; } catch (e) { continue; }
-      const isCode = /\/app\.v[^/]+\.(css|js)$/.test(p);
+      const isCode = /\/(?:app|lazy)\.v[^/]+\.(css|js)$/.test(p);
       const isNav = /(^\/index\.html$|^\/$)/.test(p);
       if (!isCode && !isNav) continue;
       const key = rq.url.split('?')[0];
@@ -102,7 +102,7 @@ async function sweepCode() {
     const reqs = await code.keys();
     const gens = {};
     for (const rq of reqs) {
-      const m = /app\.(v[0-9.]+)\.(css|js)$/.exec(rq.url);
+      const m = /(?:app|lazy)\.(v[0-9.]+)\.(?:[a-z0-9-]+\.)?(css|js)$/.exec(rq.url);
       if (!m) continue;
       (gens[m[1]] = gens[m[1]] || []).push(rq);
     }
@@ -328,7 +328,8 @@ async function codeCacheFirst(request) {
     const res = await fetch(request);
     if (res && res.ok) {
       const t = await res.clone().text();
-      if (t.length >= SYNC_MIN) { try { code.put(key, res.clone()); } catch (e) {} }
+      const minLen = /\/lazy\.v[^/]+\./.test(key) ? 8000 : SYNC_MIN;   // 分片本来就小：50KB 那条下限会把它们全判成截断
+      if (t.length >= minLen) { try { code.put(key, res.clone()); } catch (e) {} }
       return res;
     }
   } catch (e) {}
@@ -410,6 +411,7 @@ self.addEventListener('message', (e) => {
     try {
       const m = await fetch('./asset-manifest.json', { cache: 'reload' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
       if (m && Array.isArray(m.files)) for (const f of m.files) targets.push(base + f);
+      if (m && Array.isArray(m.lazy)) for (const f of m.lazy) targets.push(base + f);   // 首屏 JS 分片：换版后第一次进那几页不再现下
     } catch (x) {}
     const grab = (u) => fetch(u, { cache: 'reload' }).then((res) => {
       if (!res || !res.ok) return false;
@@ -428,6 +430,30 @@ self.addEventListener('message', (e) => {
       await Promise.allSettled(targets.slice(i, i + 12).map(grab));
     }
   })().then(done).catch(done);
+});
+
+// 首屏 JS 分片（dist/lazy.v<ver>.<组>.js）：页面 load 之后才由 js/sw-register.js 发一发 LAZY_PREFETCH，
+// 把这一版那几片补进代码账本——离线第一次进那些页也打得开。刻意不放进 install：安装期正是首屏最难的时候，
+// 那时去拉分片就是与入口自己抢同一条弱网带宽（#474 二批那条铁律同一课）。
+self.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type !== 'LAZY_PREFETCH') return;
+  const base = new URL('./', self.registration.scope).href;
+  const run = async () => {
+    let am = null;
+    try { am = await fetch('./asset-manifest.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)); } catch (x) { return; }
+    const list = (am && Array.isArray(am.lazy)) ? am.lazy : [];
+    if (!list.length) return;
+    const code = await caches.open(CODE_CACHE);
+    for (const f of list) {
+      if (!/\.js$/.test(f)) continue;
+      let key = '';
+      try { key = canon(base + f); } catch (x) { continue; }
+      try { if (await code.match(key)) continue; } catch (x) {}
+      try { await code.add(new Request(key, { cache: 'reload' })); } catch (x) {}
+    }
+  };
+  try { e.waitUntil(run()); } catch (x) { run(); }
 });
 
 // 后台弹窗点击（mochi 移植）：聚焦已有窗口 / 开新窗口，并 postMessage 通知页面端跳转。
