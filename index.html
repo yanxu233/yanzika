@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v22.6.1.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v22.6.1.js"></script>
+  <link rel="stylesheet" href="dist/app.v22.6.7.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v22.6.7.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v22.6.1.css','dist/app.v22.6.1.js'];
+      var BOOT_FILES = ['dist/app.v22.6.7.css','dist/app.v22.6.7.js'];
 
 
 
@@ -1186,32 +1186,8 @@
           <button type="button" class="tune-tab" data-solo-sec="plan" role="tab">一套</button>
         </div>
         <div class="tune-scope" id="soloTuneScope"></div>
-        <div class="tune-body" id="soloTuneBody">
-          <div class="ap-sec" data-solo-body="bg">
-            <div class="ap-row"><span>背景</span><div class="contact-chip-row" style="margin:0" id="spBgRow"><button type="button" class="contact-chip" data-v="plain">素色</button><button type="button" class="contact-chip" data-v="chat">透这一位的聊天背景图</button></div></div>
-            <div class="ap-row" id="spToneWrap"><span>底板深浅</span><div class="contact-chip-row" style="margin:0" id="spToneRow"><button type="button" class="contact-chip" data-v="light">更浅</button><button type="button" class="contact-chip" data-v="std">标准</button><button type="button" class="contact-chip" data-v="deep">更深</button></div></div>
-            <div id="spImgWrap" hidden>
-              <label class="ap-knob"><span>面板浓度</span><input type="range" id="spFace" min="35" max="95" step="1" value="62" aria-label="面板浓度"><output id="spFaceOut">62%</output></label>
-              <label class="ap-knob"><span>磨砂强度</span><input type="range" id="spBlur" min="0" max="24" step="1" value="0" aria-label="磨砂强度"><output id="spBlurOut">0px</output></label>
-            </div>
-            <p class="data-note">素色只动底板深浅；选「透聊天背景图」才出现浓度与磨砂——浓度是压在图上的<b>白纱</b>（最低 35%，保住字），磨砂糊的是<b>图本体</b>、不糊字。图直接复用这一位已设的聊天背景，不另传。</p>
-          </div>
-          <div class="ap-sec" data-solo-body="shape" hidden>
-            <div class="ap-row"><span>圆角</span><div class="contact-chip-row" style="margin:0" id="spRadiusRow"><button type="button" class="contact-chip" data-v="auto">跟随卡片</button><button type="button" class="contact-chip" data-v="sharp">更利落</button><button type="button" class="contact-chip" data-v="round">更圆</button></div></div>
-            <label class="ap-knob"><span>半框高度</span><input type="range" id="spH" min="40" max="70" step="1" value="52" aria-label="半框高度"><output id="spHOut">52%</output></label>
-            <p class="data-note">「跟随卡片」＝卡片里那档内嵌圆角（出厂 14px），不跟全站「利落／柔和」那档走。高度出厂 52%＝现在那一档；拖到 70% 时把托盘「收起」就能看全。内部照旧自滚、永远停最新。</p>
-          </div>
-          <div class="ap-sec" data-solo-body="head" hidden>
-            <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>头像</span><input type="checkbox" id="spAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>名字与副题</span><input type="checkbox" id="spName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>进入聊天 ›</span><input type="checkbox" id="spGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <p class="data-note">三项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
-          </div>
-          <div class="ap-sec" data-solo-body="plan" hidden>
-            <div class="ap-row"><span>一套套上</span><div class="contact-chip-row" style="margin:0" id="spPresetRow"><button type="button" class="contact-chip" data-v="now">现状</button><button type="button" class="contact-chip" data-v="silver">素银</button><button type="button" class="contact-chip" data-v="clean">极简</button></div></div>
-            <p class="data-note">每套只是把这九格<b>已有值</b>一次写好，套完仍能单改；改的是<b>这一位</b>，不动别人。现状＝出厂那档。</p>
-          </div>
-        </div>
+         
+        <div class="tune-body" id="soloTuneBody"></div>
       </div>
     </div>
      
@@ -2160,8 +2136,41 @@
         </div>
 
          
-        <div class="setting-card set-entry" data-tab="desk">
-          <button type="button" class="set-entry-row" id="soloTuneEntry"><span class="set-entry-tx"><strong>单人框 · 自由美化</strong><small id="sumSoloTune"></small></span><i class="set-entry-arrow" aria-hidden="true">›</i></button>
+        <div class="setting-card sp-card" data-tab="desk">
+          <div class="sp-card-hd">
+            <div class="sp-card-tx"><span class="sp-card-ti">单人框 · 自由美化</span><small class="sp-card-sum" id="sumSoloTune"></small></div>
+            <button type="button" class="soft-btn sp-card-btn" id="soloTuneEntry">边看边调</button>
+          </div>
+          <div class="contact-chip-row" id="spWhoRow" style="margin:4px 0 10px"></div>
+          <div class="sp-preview-wrap" id="spPreviewWrap"><div class="solo-peek sp-preview" id="soloPeekPreview"></div></div>
+          <p class="data-note" id="spPreviewNote" style="margin-top:0"></p>
+          <div id="spInlineCtl">
+            <div class="ap-sec" data-solo-body="bg">
+              <div class="ap-row"><span>背景</span><div class="contact-chip-row" style="margin:0" id="spBgRow"><button type="button" class="contact-chip" data-v="plain">素色</button><button type="button" class="contact-chip" data-v="chat">透这一位的聊天背景图</button></div></div>
+              <div class="ap-row" id="spToneWrap"><span>底板深浅</span><div class="contact-chip-row" style="margin:0" id="spToneRow"><button type="button" class="contact-chip" data-v="light">更浅</button><button type="button" class="contact-chip" data-v="std">标准</button><button type="button" class="contact-chip" data-v="deep">更深</button></div></div>
+              <div id="spImgWrap" hidden>
+                <label class="ap-knob"><span>面板浓度</span><input type="range" id="spFace" min="35" max="95" step="1" value="62" aria-label="面板浓度"><output id="spFaceOut">62%</output></label>
+                <label class="ap-knob"><span>磨砂强度</span><input type="range" id="spBlur" min="0" max="24" step="1" value="0" aria-label="磨砂强度"><output id="spBlurOut">0px</output></label>
+              </div>
+              <p class="data-note">素色只动底板深浅；选「透聊天背景图」才出现浓度与磨砂——浓度是压在图上的<b>白纱</b>（最低 35%，保住字），磨砂糊的是<b>图本体</b>、不糊字。图直接复用这一位已设的聊天背景，不另传。</p>
+            </div>
+            <div class="ap-sec" data-solo-body="shape">
+              <div class="ap-row"><span>圆角</span><div class="contact-chip-row" style="margin:0" id="spRadiusRow"><button type="button" class="contact-chip" data-v="auto">跟随卡片</button><button type="button" class="contact-chip" data-v="sharp">更利落</button><button type="button" class="contact-chip" data-v="round">更圆</button></div></div>
+              <label class="ap-knob"><span>半框高度</span><input type="range" id="spH" min="40" max="70" step="1" value="52" aria-label="半框高度"><output id="spHOut">52%</output></label>
+              <p class="data-note">「跟随卡片」＝卡片里那档内嵌圆角（出厂 14px），不跟全站「利落／柔和」那档走。高度出厂 52%＝现在那一档；70% 时在会话页把托盘「收起」就能看全。内部照旧自滚、永远停最新。</p>
+            </div>
+            <div class="ap-sec" data-solo-body="head">
+              <div class="ap-row"><span>框头显示</span><span style="font-size:11px;color:var(--muted)">关掉哪一项就少哪一项</span></div>
+              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>头像</span><input type="checkbox" id="spAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>名字与副题</span><input type="checkbox" id="spName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>进入聊天 ›</span><input type="checkbox" id="spGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+              <p class="data-note">三项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
+            </div>
+            <div class="ap-sec" data-solo-body="plan">
+              <div class="ap-row"><span>一套套上</span><div class="contact-chip-row" style="margin:0" id="spPresetRow"><button type="button" class="contact-chip" data-v="now">现状</button><button type="button" class="contact-chip" data-v="silver">素银</button><button type="button" class="contact-chip" data-v="clean">极简</button></div></div>
+              <p class="data-note">每套只是把这九格<b>已有值</b>一次写好，套完仍能单改；改的是<b>这一位</b>，不动别人。现状＝出厂那档。</p>
+            </div>
+          </div>
         </div>
 
         <div class="setting-card fold" data-tab="desk" data-fold="light">
@@ -2197,7 +2206,7 @@
 
         <div class="setting-card fold" data-tab="desk" data-fold="fullscreen">
           <button type="button" class="fold-hd"><span class="fold-ti">全屏模式</span><span class="fold-sum" id="sumFs"></span><i class="fold-ar">›</i></button>
-          <div class="fold-bd"><div class="ap-row"><span>全屏模式<span style="display:block;font-size:11px;color:var(--muted)">隐藏系统状态栏与浏览器工具栏，内容铺满整屏。安卓与电脑上即时生效、重启仍记得；iPhone 受系统限制拿不到，请看下面「添加到主屏幕」</span></span><input type="checkbox" id="fsOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="setting-subhead">添加到主屏幕</div><p class="data-note" id="fsFormNote"></p><div class="data-actions"><button class="soft-btn" id="fsInstallBtn" hidden>添加到主屏幕</button></div><p class="data-note">从桌面图标打开＝没有浏览器工具栏，是手机上最接近全屏的形态，消息通知也只有这条路能在 iPhone 上用。iPhone 的操作：Safari 底部「分享」→「添加到主屏幕」。⚠ iOS 的系统状态栏（时间/电量）任何网页都藏不掉，这是所有 iPhone 应用的共同限制，不是本站没做。</p> 
+          <div class="fold-bd"><div class="ap-row"><span>全屏模式<span style="display:block;font-size:11px;color:var(--muted)">隐藏系统状态栏与浏览器工具栏，内容铺满整屏。安卓与电脑上即时生效、重启仍记得；iPhone 受系统限制拿不到，请看下面「添加到主屏幕」。少数国产浏览器（如小米浏览器）会把网页全屏转成横屏，那里会自动退回竖屏并说明</span></span><input type="checkbox" id="fsOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="setting-subhead">添加到主屏幕</div><p class="data-note" id="fsFormNote"></p><div class="data-actions"><button class="soft-btn" id="fsInstallBtn" hidden>添加到主屏幕</button></div><p class="data-note">从桌面图标打开＝没有浏览器工具栏，是手机上最接近全屏的形态，消息通知也只有这条路能在 iPhone 上用。iPhone 的操作：Safari 底部「分享」→「添加到主屏幕」。⚠ iOS 的系统状态栏（时间/电量）任何网页都藏不掉，这是所有 iPhone 应用的共同限制，不是本站没做。</p> 
           <div class="setting-subhead">换用法前先备份 · 两边可能是两套存储</div><p class="data-note" id="fsDataNote">同一个网址，用浏览器直接打开，和「添加到主屏幕 / 安装应用」后从桌面图标进入，多数浏览器共用同一份本地数据，但<b>不保证</b>：部分浏览器的「添加到桌面」会另开一套存储（Chrome / Edge 的安装应用一般共用），用 file:// 双击打开的那份与网址那份也各是各的。两种用法都在你设备本地——本站没有云存储，数据不会上传到任何网络。换用法前先在 设置 → 数据 →「导出全部数据」备份；到新用法里如果看不到原来的内容，再「导入全部数据」恢复。</p></div>
         </div>
 
